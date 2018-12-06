@@ -6,35 +6,19 @@ import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Sucursal implements Serializable {
 
-    /** Primary key. */
-    protected static final String PK = "codSucursal";
-
-    /**
-     * The optimistic lock. Available via standard bean get/set operations.
-     */
-    private Serializable lockFlag;
-
-    /**
-     * Access method for the lockFlag property.
-     *
-     * @return the current value of the lockFlag property
-     */
-    public Serializable getLockFlag() {
-        return lockFlag;
-    }
-
-    /**
-     * Sets the value of the lockFlag property.
-     *
-     * @param aLockFlag the new value of the lockFlag property
-     */
-    public void setLockFlag(Serializable aLockFlag) {
-        lockFlag = aLockFlag;
-    }
-
-    private int codSucursal;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", unique = true, nullable = false)
+    private Long id;
     private String descripcion;
     private String direccion;
     private String telefono;
@@ -42,32 +26,28 @@ public class Sucursal implements Serializable {
     private String telefonoContacto;
     private String latitud;
     private String longitud;
-    private Cliente cliente;
+    private Long codCliente;
 
     /** Default constructor. */
     public Sucursal() {
         super();
     }
 
-    /**
-     * Access method for codSucursal.
-     *
-     * @return the current value of codSucursal
-     */
-    public int getCodSucursal() {
-        return codSucursal;
-    }
+   
 
-    /**
-     * Setter method for codSucursal.
-     *
-     * @param aCodSucursal the new value for codSucursal
-     */
-    public void setCodSucursal(int aCodSucursal) {
-        codSucursal = aCodSucursal;
-    }
+    public Long getId() {
+		return id;
+	}
 
-    /**
+
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+
+
+	/**
      * Access method for descripcion.
      *
      * @return the current value of descripcion
@@ -193,92 +173,13 @@ public class Sucursal implements Serializable {
         longitud = aLongitud;
     }
 
-    /**
-     * Access method for cliente.
-     *
-     * @return the current value of cliente
-     */
-    public Cliente getCliente() {
-        return cliente;
-    }
+	public Long getCodCliente() {
+		return codCliente;
+	}
 
-    /**
-     * Setter method for cliente.
-     *
-     * @param aCliente the new value for cliente
-     */
-    public void setCliente(Cliente aCliente) {
-        cliente = aCliente;
-    }
+	public void setCodCliente(Long codCliente) {
+		this.codCliente = codCliente;
+	}
 
-    /**
-     * Compares the key for this instance with another Sucursal.
-     *
-     * @param other The object to compare to
-     * @return True if other object is instance of class Sucursal and the key objects are equal
-     */
-    private boolean equalKeys(Object other) {
-        if (this==other) {
-            return true;
-        }
-        if (!(other instanceof Sucursal)) {
-            return false;
-        }
-        Sucursal that = (Sucursal) other;
-        if (this.getCodSucursal() != that.getCodSucursal()) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * Compares this instance with another Sucursal.
-     *
-     * @param other The object to compare to
-     * @return True if the objects are the same
-     */
-    @Override
-    public boolean equals(Object other) {
-        if (!(other instanceof Sucursal)) return false;
-        return this.equalKeys(other) && ((Sucursal)other).equalKeys(this);
-    }
-
-    /**
-     * Returns a hash code for this instance.
-     *
-     * @return Hash code
-     */
-    @Override
-    public int hashCode() {
-        int i;
-        int result = 17;
-        i = getCodSucursal();
-        result = 37*result + i;
-        return result;
-    }
-
-    /**
-     * Returns a debug-friendly String representation of this instance.
-     *
-     * @return String representation of this instance
-     */
-    @Override
-    public String toString() {
-        StringBuffer sb = new StringBuffer("[Sucursal |");
-        sb.append(" codSucursal=").append(getCodSucursal());
-        sb.append("]");
-        return sb.toString();
-    }
-
-    /**
-     * Return all elements of the primary key.
-     *
-     * @return Map of key names to values
-     */
-    public Map<String, Object> getPrimaryKey() {
-        Map<String, Object> ret = new LinkedHashMap<String, Object>(6);
-        ret.put("codSucursal", Integer.valueOf(getCodSucursal()));
-        return ret;
-    }
 
 }
